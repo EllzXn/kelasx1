@@ -71,13 +71,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // 7. Inisialisasi Galeri (Swiper.js)
-        new Swiper(".mySwiper", {
-            spaceBetween: 30, centeredSlides: true,
-            autoplay: { delay: 3000, disableOnInteraction: false },
-            pagination: { el: ".swiper-pagination", clickable: true },
-            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-            loop: true,
-        });
+new Swiper(".mySwiper", {
+    spaceBetween: 30,
+    centeredSlides: true,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+    loop: true,
+
+    // --- TAMBAHAN UNTUK MEMPERBAIKI BUG SCROLL ---
+    observer: true,
+    observeParents: true,
+    a11y: {
+        enabled: false, // Menonaktifkan modul aksesibilitas yang bisa menyebabkan scroll
+    },
+    // ---------------------------------------------
+});
+
 
         // 8. Animasi Saat Scroll
         const observer = new IntersectionObserver((entries) => {
