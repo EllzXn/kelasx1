@@ -72,12 +72,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 7. Inisialisasi Galeri (Swiper.js)
 new Swiper(".mySwiper", {
+    // --- Konfigurasi Dasar (Tetap Sama) ---
+    loop: true,
     spaceBetween: 30,
     centeredSlides: true,
+
+    // --- Konfigurasi Autoplay (Tetap Sama) ---
     autoplay: {
         delay: 3000,
         disableOnInteraction: false,
     },
+
+    // --- Konfigurasi Navigasi & Paginasi (Tetap Sama) ---
     pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -86,17 +92,24 @@ new Swiper(".mySwiper", {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
     },
-    loop: true,
 
-    // --- TAMBAHAN UNTUK MEMPERBAIKI BUG SCROLL ---
+    // --- KONFIGURASI PENTING UNTUK PERBAIKAN BUG SCROLL ---
+
+    // 1. Cegah interaksi dengan URL browser
+    hashNavigation: false,
+
+    // 2. Cegah masalah rendering sub-pixel
+    roundLengths: true,
+
+    // 3. Jaga stabilitas saat ada perubahan DOM (Tetap dipertahankan)
     observer: true,
     observeParents: true,
-    a11y: {
-        enabled: false, // Menonaktifkan modul aksesibilitas yang bisa menyebabkan scroll
-    },
-    // ---------------------------------------------
-});
 
+    // 4. Nonaktifkan modul a11y (Tetap dipertahankan sebagai pencegahan)
+    a11y: {
+        enabled: false,
+    },
+});
 
         // 8. Animasi Saat Scroll
         const observer = new IntersectionObserver((entries) => {
