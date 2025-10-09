@@ -125,7 +125,7 @@ new Swiper(".mySwiper", {
         let lastScrollY = window.scrollY;
         window.addEventListener("scroll", () => {
             if (lastScrollY < window.scrollY) {
-                document.querySelector('.navbar').style.top = "-80px";
+                document.querySelector('.navbar').style.top = "0px";
             } else {
                 document.querySelector('.navbar').style.top = "0";
             }
