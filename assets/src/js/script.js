@@ -71,19 +71,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // 7. Inisialisasi Galeri (Swiper.js)
-new Swiper(".mySwiper", {
-    // --- Konfigurasi Dasar (Tetap Sama) ---
+// Ganti seluruh blok inisialisasi Swiper Anda dengan ini:
+const mySwiper = new Swiper(".mySwiper", { // <--- Tambahkan "const mySwiper ="
+    // --- Konfigurasi Dasar ---
     loop: true,
     spaceBetween: 30,
     centeredSlides: true,
 
-    // --- Konfigurasi Autoplay (Tetap Sama) ---
+    // --- Konfigurasi Autoplay ---
     autoplay: {
         delay: 3000,
         disableOnInteraction: false,
     },
 
-    // --- Konfigurasi Navigasi & Paginasi (Tetap Sama) ---
+    // --- Konfigurasi Navigasi & Paginasi ---
     pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -93,22 +94,27 @@ new Swiper(".mySwiper", {
         prevEl: ".swiper-button-prev",
     },
 
-    // --- KONFIGURASI PENTING UNTUK PERBAIKAN BUG SCROLL ---
-
-    // 1. Cegah interaksi dengan URL browser
+    // --- KONFIGURASI PENTING UNTUK PERBAIKAN BUG ---
     hashNavigation: false,
-
-    // 2. Cegah masalah rendering sub-pixel
     roundLengths: true,
-
-    // 3. Jaga stabilitas saat ada perubahan DOM (Tetap dipertahankan)
     observer: true,
     observeParents: true,
+    a11y: { enabled: false },
 
-    // 4. Nonaktifkan modul a11y (Tetap dipertahankan sebagai pencegahan)
-    a11y: {
-        enabled: false,
-    },
+    // --- TAMBAHAN BARU PALING PENTING ---
+    preventClicks: true,
+    preventClicksPropagation: true,
+});
+
+// KODE BARU: Tambahkan ini tepat di bawah blok "new Swiper" di atas
+
+// Kode ini akan secara paksa menghilangkan fokus dari elemen apa pun
+// tepat sebelum transisi slide dimulai. Ini adalah kunci untuk mencegah
+// browser melakukan scroll otomatis.
+mySwiper.on('transitionStart', function () {
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
 });
 
         // 8. Animasi Saat Scroll
