@@ -56,6 +56,12 @@
       "type": "image",
       "thumbnail": "/assets/img/pramuka-x1-3.jpg",
       "source": "/assets/img/pramuka-x1-3.jpg"
+    },
+    {
+      "type": "video",
+      "thumbnail": "/assets/video/hbd-egi.mp4",
+      "source": "/assets/video/hbd-egi.mp4"
     }
   ]
 }
+
