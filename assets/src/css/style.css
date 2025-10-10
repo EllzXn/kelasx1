@@ -196,6 +196,38 @@ main#content {
 .swiper-button-next, .swiper-button-prev { color: #fff !important; }
 .swiper-pagination-bullet-active { background: #fff !important; }
 
+/* --- GAYA TAMBAHAN UNTUK GALERI VIDEO --- */
+
+/* Membuat posisi ikon play relatif terhadap pembungkusnya */
+.swiper-slide a {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Membuat ikon play di tengah thumbnail video */
+.video-thumbnail::after {
+    content: '\f144'; /* Kode ikon 'play circle' dari Font Awesome */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease, color 0.3s ease;
+    pointer-events: none; /* Agar ikon tidak menghalangi klik */
+}
+
+/* Efek hover pada ikon play */
+.video-thumbnail:hover::after {
+    transform: translate(-50%, -50%) scale(1.1);
+    color: #fff;
+}
+
 /* --- FOOTER --- */
 footer {
     text-align: center;
