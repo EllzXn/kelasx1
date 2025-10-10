@@ -64,11 +64,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>`;
         });
 
-        // 6. Membuat Konten Galeri
-        const galeriContainer = document.getElementById('galeri-container');
-        data.galeri.forEach(foto => {
-            galeriContainer.innerHTML += `<div class="swiper-slide"><img src="${foto}" alt="Foto ${data.namaKelas}"></div>`;
-        });
+        // 6. Membuat Konten Galeri dengan Dukungan Video
+const galeriContainer = document.getElementById('galeri-container');
+data.galeri.forEach(item => {
+    // Tentukan kelas tambahan jika item adalah video
+    const videoClass = item.type === 'video' ? 'video-thumbnail' : '';
+
+    // Buat elemen link (<a>) yang akan digunakan oleh GLightbox
+    const linkElement = `
+        <a href="${item.source}" class="glightbox ${videoClass}" data-gallery="kelas-gallery">
+            <img src="${item.thumbnail}" alt="Media ${data.namaKelas}">
+        </a>
+    `;
+
+    // Tambahkan elemen baru ke dalam slide Swiper
+    galeriContainer.innerHTML += `
+        <div class="swiper-slide">
+            ${linkElement}
+        </div>
+    `;
+});
 
         // 7. Inisialisasi Galeri (Swiper.js)
 // Ganti seluruh blok inisialisasi Swiper Anda dengan ini:
@@ -104,6 +119,27 @@ const mySwiper = new Swiper(".mySwiper", { // <--- Tambahkan "const mySwiper ="
     // --- TAMBAHAN BARU PALING PENTING ---
     preventClicks: true,
     preventClicksPropagation: true,
+
+    loop: true,
+    spaceBetween: 30,
+    centeredSlides: true,
+    autoplay: { delay: 3000, disableOnInteraction: false },
+    pagination: { el: ".swiper-pagination", clickable: true },
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    hashNavigation: false,
+    roundLengths: true,
+    observer: true,
+    observeParents: true,
+    a11y: { enabled: false },
+    preventClicks: true,
+    preventClicksPropagation: true
+});
+
+// 7.5. Inisialisasi GLightbox
+const lightbox = GLightbox({
+    selector: '.glightbox', // Menargetkan semua link dengan kelas 'glightbox'
+    loop: true, // Memungkinkan navigasi berulang di dalam lightbox
+    touchNavigation: true, // Bisa digeser di mobile
 });
 
 // KODE BARU: Tambahkan ini tepat di bawah blok "new Swiper" di atas
