@@ -1,61 +1,179 @@
-{
-  "namaKelas": "Kelas X.1",
-  "waliKelas": "Abd. Muis S.Pd",
-  "strukturKelas": [
-    { "jabatan": "Ketua Kelas", "nama": "Dimas" },
-    { "jabatan": "Wakil Ketua Kelas", "nama": "Afra" },
-    { "jabatan": "Sekretaris", "nama": "Wiwi" },
-    { "jabatan": "Bendahara", "nama": "Alya" }
-  ],
-  "jadwalPelajaran": [
-    { "hari": "Senin", "mapel": ["Bahasa Inggris", "Agama", "Fisika"] },
-    { "hari": "Selasa", "mapel": ["Matematika", "Sejarah", "Kimia"] },
-    { "hari": "Rabu", "mapel": ["Bahasa Indonesia", "Informatika", "Geografi", "Sosiologi"] },
-    { "hari": "Kamis", "mapel": ["Biologi", "PJOK", "Bahasa Daerah", "PKN"] },
-    { "hari": "Jumat", "mapel": ["Bahasa Indonesia", "Seni Budaya", "Ekonomi"] }
-  ],
-  "jadwalPiket": [
-    { "hari": "Senin", "anggota": ["Dila", "Dimas", "Husna", "Azikah", "Rafih", "Apral"] },
-    { "hari": "Selasa", "anggota": ["Gadis", "Egi", "Salsa", "Hisyam", "Afra", "Gio", "Amira"] },
-    { "hari": "Rabu", "anggota": ["Nazhifa", "Marsel", "Fani", "Rifandi", "Devita", "Fadil", "Fariid"] },
-    { "hari": "Kamis", "anggota": ["Musliana", "Indra", "Alya", "Harun", "Wiwi", "Gabriel"] },
-    { "hari": "Jumat", "anggota": ["Yelsi", "Riko", "Naura", "Alfatha", "Mardianto", "Erlita", "Merli"] }
-  ],
-  "galeri": [
-    {
-      "type": "image",
-      "thumbnail": "/assets/img/mpls-x1.jpg",
-      "source": "/assets/img/mpls-x1.jpg"
-    },
-    {
-      "type": "image",
-      "thumbnail": "/assets/img/mpls-x1-2.jpg",
-      "source": "/assets/img/mpls-x1-2.jpg"
-    },
-    {
-      "type": "image",
-      "thumbnail": "/assets/img/mpls-x1-3.jpg",
-      "source": "/assets/img/mpls-x1-3.jpg"
-    },
-    {
-      "type": "image",
-      "thumbnail": "/assets/img/mpls-x1-lomba.jpg",
-      "source": "/assets/img/mpls-x1-lomba.jpg"
-    },
-    {
-      "type": "image",
-      "thumbnail": "/assets/img/pramuka-x1.jpg",
-      "source": "/assets/img/pramuka-x1.jpg"
-    },
-    {
-      "type": "image",
-      "thumbnail": "/assets/img/pramuka-x1-2.jpg",
-      "source": "/assets/img/pramuka-x1-2.jpg"
-    },
-    {
-      "type": "image",
-      "thumbnail": "/assets/img/pramuka-x1-3.jpg",
-      "source": "/assets/img/pramuka-x1-3.jpg"
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Fungsi untuk mengambil data dari file JSON
+    async function fetchData() {
+        const response = await fetch('/assets/src/json/data.json');
+        return await response.json();
     }
-  ]
-}
+
+    // Fungsi utama
+    async function init() {
+        const data = await fetchData();
+
+        // 1. Mengisi Teks Dinamis
+        document.title = `Website ${data.namaKelas}`;
+        document.querySelector('.nav-logo').innerText = data.namaKelas;
+        document.getElementById('nama-kelas-hero').innerText = data.namaKelas;
+        document.getElementById('nama-kelas-footer').innerText = data.namaKelas;
+
+        // 2. Inisialisasi Efek Ketik (Typed.js)
+        new Typed('#typed-text', {
+            strings: ["Selamat Datang", `Di Website ${data.namaKelas}`],
+            typeSpeed: 70, backSpeed: 50, loop: true, backDelay: 2000,
+        });
+
+        // 3. Membuat Konten Struktur Kelas dengan Ikon
+        const strukturContainer = document.getElementById('struktur-kelas-container');
+        // Icon untuk Wali Kelas
+        strukturContainer.innerHTML += `
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <h3 class="jabatan">Wali Kelas</h3>
+                <p class="nama">${data.waliKelas}</p>
+            </div>`;
+        // Icon untuk Perangkat Kelas
+        const icons = ['fa-user-tie', 'fa-user-graduate', 'fa-book-open', 'fa-coins'];
+        data.strukturKelas.forEach((item, index) => {
+            strukturContainer.innerHTML += `
+                <div class="card">
+                    <div class="card-icon"><i class="fas ${icons[index] || 'fa-user'}"></i></div>
+                    <h3 class="jabatan">${item.jabatan}</h3>
+                    <p class="nama">${item.nama}</p>
+                </div>`;
+        });
+        
+        // 4. Membuat Konten Jadwal Pelajaran
+        const jadwalPelajaranContainer = document.getElementById('jadwal-pelajaran-container');
+        data.jadwalPelajaran.forEach(hari => {
+            const mapelList = hari.mapel.map(m => `<li>${m}</li>`).join('');
+            jadwalPelajaranContainer.innerHTML += `
+                <div class="schedule-item">
+                    <h4>${hari.hari}</h4>
+                    <ul>${mapelList}</ul>
+                </div>`;
+        });
+
+        // 5. Membuat Konten Jadwal Piket
+        const jadwalPiketContainer = document.getElementById('jadwal-piket-container');
+        data.jadwalPiket.forEach(hari => {
+            const anggotaList = hari.anggota.map(a => `<li>${a}</li>`).join('');
+            jadwalPiketContainer.innerHTML += `
+                <div class="schedule-item">
+                    <h4>${hari.hari}</h4>
+                    <ul>${anggotaList}</ul>
+                </div>`;
+        });
+
+        // 6. Membuat Konten Galeri dengan Dukungan Video
+const galeriContainer = document.getElementById('galeri-container');
+data.galeri.forEach(item => {
+    // Tentukan kelas tambahan jika item adalah video
+    const videoClass = item.type === 'video' ? 'video-thumbnail' : '';
+
+    // Buat elemen link (<a>) yang akan digunakan oleh GLightbox
+    const linkElement = `
+        <a href="${item.source}" class="glightbox ${videoClass}" data-gallery="kelas-gallery">
+            <img src="${item.thumbnail}" alt="Media ${data.namaKelas}">
+        </a>
+    `;
+
+    // Tambahkan elemen baru ke dalam slide Swiper
+    galeriContainer.innerHTML += `
+        <div class="swiper-slide">
+            ${linkElement}
+        </div>
+    `;
+});
+
+        // 7. Inisialisasi Galeri (Swiper.js)
+// Ganti seluruh blok inisialisasi Swiper Anda dengan ini:
+const mySwiper = new Swiper(".mySwiper", { // <--- Tambahkan "const mySwiper ="
+    // --- Konfigurasi Dasar ---
+    loop: true,
+    spaceBetween: 30,
+    centeredSlides: true,
+
+    // --- Konfigurasi Autoplay ---
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+
+    // --- Konfigurasi Navigasi & Paginasi ---
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+
+    // --- KONFIGURASI PENTING UNTUK PERBAIKAN BUG ---
+    hashNavigation: false,
+    roundLengths: true,
+    observer: true,
+    observeParents: true,
+    a11y: { enabled: false },
+
+    // --- TAMBAHAN BARU PALING PENTING ---
+    preventClicks: true,
+    preventClicksPropagation: true,
+
+    loop: true,
+    spaceBetween: 30,
+    centeredSlides: true,
+    autoplay: { delay: 3000, disableOnInteraction: false },
+    pagination: { el: ".swiper-pagination", clickable: true },
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    hashNavigation: false,
+    roundLengths: true,
+    observer: true,
+    observeParents: true,
+    a11y: { enabled: false },
+    preventClicks: true,
+    preventClicksPropagation: true
+});
+
+// 7.5. Inisialisasi GLightbox
+const lightbox = GLightbox({
+    selector: '.glightbox', // Menargetkan semua link dengan kelas 'glightbox'
+    loop: true, // Memungkinkan navigasi berulang di dalam lightbox
+    touchNavigation: true, // Bisa digeser di mobile
+});
+
+// KODE BARU: Tambahkan ini tepat di bawah blok "new Swiper" di atas
+
+// Kode ini akan secara paksa menghilangkan fokus dari elemen apa pun
+// tepat sebelum transisi slide dimulai. Ini adalah kunci untuk mencegah
+// browser melakukan scroll otomatis.
+mySwiper.on('transitionStart', function () {
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
+});
+
+        // 8. Animasi Saat Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+        
+        // 9. Efek Sembunyi/Tampil Navbar saat scroll
+        let lastScrollY = window.scrollY;
+        window.addEventListener("scroll", () => {
+            if (lastScrollY < window.scrollY) {
+                document.querySelector('.navbar').style.top = "0px";
+            } else {
+                document.querySelector('.navbar').style.top = "0";
+            }
+            lastScrollY = window.scrollY;
+        });
+    }
+
+    init(); // Panggil fungsi utama
+});
