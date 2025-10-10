@@ -22,12 +22,40 @@
     { "hari": "Jumat", "anggota": ["Yelsi", "Riko", "Naura", "Alfatha", "Mardianto", "Erlita", "Merli"] }
   ],
   "galeri": [
-    "/assets/img/mpls-x1.jpg",
-    "/assets/img/mpls-x1-2.jpg",
-    "/assets/img/mpls-x1-3.jpg",
-    "/assets/img/mpls-x1-lomba.jpg",
-    "/assets/img/pramuka-x1.jpg",
-    "/assets/img/pramuka-x1-2.jpg",
-    "/assets/img/pramuka-x1-3.jpg"
+    {
+      "type": "image",
+      "thumbnail": "/assets/img/mpls-x1.jpg",
+      "source": "/assets/img/mpls-x1.jpg"
+    },
+    {
+      "type": "image",
+      "thumbnail": "/assets/img/mpls-x1-2.jpg",
+      "source": "/assets/img/mpls-x1-2.jpg"
+    },
+    {
+      "type": "image",
+      "thumbnail": "/assets/img/mpls-x1-3.jpg",
+      "source": "/assets/img/mpls-x1-3.jpg"
+    },
+    {
+      "type": "image",
+      "thumbnail": "/assets/img/mpls-x1-lomba.jpg",
+      "source": "/assets/img/mpls-x1-lomba.jpg"
+    },
+    {
+      "type": "image",
+      "thumbnail": "/assets/img/pramuka-x1.jpg",
+      "source": "/assets/img/pramuka-x1.jpg"
+    },
+    {
+      "type": "image",
+      "thumbnail": "/assets/img/pramuka-x1-2.jpg",
+      "source": "/assets/img/pramuka-x1-2.jpg"
+    },
+    {
+      "type": "image",
+      "thumbnail": "/assets/img/pramuka-x1-3.jpg",
+      "source": "/assets/img/pramuka-x1-3.jpg"
+    }
   ]
 }
