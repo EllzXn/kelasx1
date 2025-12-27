@@ -1,38 +1,50 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Fungsi untuk mengambil data dari file JSON
+
+    // Fungsi untuk mengambil data JSON
     async function fetchData() {
-        const response = await fetch('/assets/src/json/data.json');
-        return await response.json();
+        try {
+            const response = await fetch('/assets/src/json/data.json');
+            return await response.json();
+        } catch (error) {
+            console.error("Gagal memuat data:", error);
+        }
     }
 
-    // Fungsi utama
     async function init() {
         const data = await fetchData();
+        if (!data) return;
 
-        // 1. Mengisi Teks Dinamis
-        document.title = `Website ${data.namaKelas}`;
-        document.querySelector('.nav-logo').innerText = data.namaKelas;
+        // 1. Setup Teks
+        document.title = `Website ${data.namaKelas} | Athenaeon`;
+        // Jangan ubah logo nav jika ingin mempertahankan "Athenaeon" hardcoded, 
+        // atau gunakan: document.querySelector('.nav-logo').innerText = data.namaKelas;
         document.getElementById('nama-kelas-hero').innerText = data.namaKelas;
         document.getElementById('nama-kelas-footer').innerText = data.namaKelas;
 
-        // 2. Inisialisasi Efek Ketik (Typed.js)
+        // 2. Typed.js (Setting Lebih Lambat & Elegan)
         new Typed('#typed-text', {
-            strings: ["Selamat Datang", `Di Website ${data.namaKelas}`],
-            typeSpeed: 70, backSpeed: 50, loop: true, backDelay: 2000,
+            strings: ["Welcome.", "Selamat Datang.", "Bienvenue."],
+            typeSpeed: 100,
+            backSpeed: 50,
+            startDelay: 500,
+            backDelay: 3000,
+            loop: true,
+            showCursor: false // Hilangkan kursor kedip biar lebih clean
         });
 
-        // 3. Membuat Konten Struktur Kelas dengan Ikon
+        // 3. Render Struktur Kelas
         const strukturContainer = document.getElementById('struktur-kelas-container');
-        // Icon untuk Wali Kelas
+        
+        // Wali Kelas
         strukturContainer.innerHTML += `
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                <h3 class="jabatan">Wali Kelas</h3>
+            <div class="card animate__animated">
+                <div class="card-icon"><i class="fas fa-crown"></i></div>
+                <h3 class="jabatan">Guardian (Wali Kelas)</h3>
                 <p class="nama">${data.waliKelas}</p>
             </div>`;
-        // Icon untuk Perangkat Kelas
-        const icons = ['fa-user-tie', 'fa-user-graduate', 'fa-book-open', 'fa-coins'];
+            
+        // Siswa/Struktur Lain
+        const icons = ['fa-user-tie', 'fa-pen-fancy', 'fa-book', 'fa-wallet'];
         data.strukturKelas.forEach((item, index) => {
             strukturContainer.innerHTML += `
                 <div class="card">
@@ -41,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="nama">${item.nama}</p>
                 </div>`;
         });
-        
-        // 4. Membuat Konten Jadwal Pelajaran
+
+        // 4. Render Jadwal
         const jadwalPelajaranContainer = document.getElementById('jadwal-pelajaran-container');
         data.jadwalPelajaran.forEach(hari => {
             const mapelList = hari.mapel.map(m => `<li>${m}</li>`).join('');
@@ -53,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>`;
         });
 
-        // 5. Membuat Konten Jadwal Piket
         const jadwalPiketContainer = document.getElementById('jadwal-piket-container');
         data.jadwalPiket.forEach(hari => {
             const anggotaList = hari.anggota.map(a => `<li>${a}</li>`).join('');
@@ -64,116 +75,61 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>`;
         });
 
-        // 6. Membuat Konten Galeri dengan Dukungan Video
-const galeriContainer = document.getElementById('galeri-container');
-data.galeri.forEach(item => {
-    // Tentukan kelas tambahan jika item adalah video
-    const videoClass = item.type === 'video' ? 'video-thumbnail' : '';
+        // 5. Render Galeri
+        const galeriContainer = document.getElementById('galeri-container');
+        data.galeri.forEach(item => {
+            const videoClass = item.type === 'video' ? 'video-thumbnail' : '';
+            const linkElement = `
+                <a href="${item.source}" class="glightbox ${videoClass}" data-gallery="kelas-gallery">
+                    <img src="${item.thumbnail}" alt="Media Kelas">
+                </a>
+            `;
+            galeriContainer.innerHTML += `<div class="swiper-slide">${linkElement}</div>`;
+        });
 
-    // Buat elemen link (<a>) yang akan digunakan oleh GLightbox
-    const linkElement = `
-        <a href="${item.source}" class="glightbox ${videoClass}" data-gallery="kelas-gallery">
-            <img src="${item.thumbnail}" alt="Media ${data.namaKelas}">
-        </a>
-    `;
+        // 6. Inisialisasi Swiper (Mode "Coverflow" untuk efek mewah)
+        const mySwiper = new Swiper(".mySwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2,
+                slideShadows: true,
+            },
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: { el: ".swiper-pagination", clickable: true },
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            observer: true,
+            observeParents: true,
+        });
 
-    // Tambahkan elemen baru ke dalam slide Swiper
-    galeriContainer.innerHTML += `
-        <div class="swiper-slide">
-            ${linkElement}
-        </div>
-    `;
-});
+        // 7. GLightbox
+        const lightbox = GLightbox({
+            selector: '.glightbox',
+            touchNavigation: true,
+            loop: true,
+            autoplayVideos: true
+        });
 
-        // 7. Inisialisasi Galeri (Swiper.js)
-// Ganti seluruh blok inisialisasi Swiper Anda dengan ini:
-const mySwiper = new Swiper(".mySwiper", { // <--- Tambahkan "const mySwiper ="
-    // --- Konfigurasi Dasar ---
-    loop: true,
-    spaceBetween: 30,
-    centeredSlides: true,
-
-    // --- Konfigurasi Autoplay ---
-    autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-    },
-
-    // --- Konfigurasi Navigasi & Paginasi ---
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-
-    // --- KONFIGURASI PENTING UNTUK PERBAIKAN BUG ---
-    hashNavigation: false,
-    roundLengths: true,
-    observer: true,
-    observeParents: true,
-    a11y: { enabled: false },
-
-    // --- TAMBAHAN BARU PALING PENTING ---
-    preventClicks: true,
-    preventClicksPropagation: true,
-
-    loop: true,
-    spaceBetween: 30,
-    centeredSlides: true,
-    autoplay: { delay: 3000, disableOnInteraction: false },
-    pagination: { el: ".swiper-pagination", clickable: true },
-    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-    hashNavigation: false,
-    roundLengths: true,
-    observer: true,
-    observeParents: true,
-    a11y: { enabled: false },
-    preventClicks: true,
-    preventClicksPropagation: true
-});
-
-// 7.5. Inisialisasi GLightbox
-const lightbox = GLightbox({
-    selector: '.glightbox', // Menargetkan semua link dengan kelas 'glightbox'
-    loop: true, // Memungkinkan navigasi berulang di dalam lightbox
-    touchNavigation: true, // Bisa digeser di mobile
-});
-
-// KODE BARU: Tambahkan ini tepat di bawah blok "new Swiper" di atas
-
-// Kode ini akan secara paksa menghilangkan fokus dari elemen apa pun
-// tepat sebelum transisi slide dimulai. Ini adalah kunci untuk mencegah
-// browser melakukan scroll otomatis.
-mySwiper.on('transitionStart', function () {
-  if (document.activeElement) {
-    document.activeElement.blur();
-  }
-});
-
-        // 8. Animasi Saat Scroll
+        // 8. Scroll Animation Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.15 });
+
         document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
-        
-        // 9. Efek Sembunyi/Tampil Navbar saat scroll
-        let lastScrollY = window.scrollY;
-        window.addEventListener("scroll", () => {
-            if (lastScrollY < window.scrollY) {
-                document.querySelector('.navbar').style.top = "0px";
-            } else {
-                document.querySelector('.navbar').style.top = "0";
-            }
-            lastScrollY = window.scrollY;
-        });
     }
 
-    init(); // Panggil fungsi utama
+    init();
 });
