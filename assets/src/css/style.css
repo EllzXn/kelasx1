@@ -1,250 +1,201 @@
-/* --- PENGATURAN DASAR --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-html {
-    scroll-behavior: smooth;
-}
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #0d1117; /* Warna background gelap kebiruan */
-    color: #c9d1d9;
-    overflow-x: hidden;
+/* --- CLEAN LUXURY THEME VARIABLES --- */
+:root {
+    --bg-color: #000000; /* Hitam Pekat */
+    --card-bg: rgba(255, 255, 255, 0.03); /* Glass effect */
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent-blue: #2E5CFF; /* Royal Blue yang mewah */
+    --accent-glow: rgba(46, 92, 255, 0.3);
+    --border-color: rgba(255, 255, 255, 0.1);
+    
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
 }
 
-/* --- NAVBAR (MENU ATAS) --- */
+/* --- RESET & BASIC --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* --- TYPOGRAPHY UTILS --- */
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-tag {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent-blue);
+    margin-bottom: 10px;
+}
+.section-title { font-size: 2.5rem; letter-spacing: 1px; color: #fff; }
+
+/* --- NAVBAR --- */
 .navbar {
-    background: rgba(13, 17, 23, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid #21262d;
-    padding: 15px 0;
-    position: fixed; /* Tetap di atas */
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    transition: top 0.3s;
-    border-radius: 0 0 15px 15px;
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi transparan */
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.4s ease;
 }
 .navbar-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    max-width: 1200px; margin: 0 auto; padding: 0 30px;
+    display: flex; justify-content: space-between; align-items: center;
 }
 .nav-logo {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-family: var(--font-serif);
+    font-size: 1.5rem; color: #fff; text-decoration: none;
+    letter-spacing: 1px; font-style: italic;
 }
 .nav-menu a {
-    color: #c9d1d9;
-    text-decoration: none;
-    margin-left: 25px;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    color: var(--text-secondary); text-decoration: none;
+    margin-left: 40px; font-size: 0.9rem; letter-spacing: 1px;
+    text-transform: uppercase; transition: color 0.3s;
 }
-.nav-menu a:hover {
-    color: #58a6ff; /* Aksen biru saat hover */
-}
+.nav-menu a:hover { color: var(--accent-blue); }
+.mobile-menu-btn { display: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
 
-/* --- HALAMAN DEPAN (HERO) --- */
+/* --- HERO SECTION --- */
 .hero {
-    height: 100vh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 100vh; position: relative;
+    display: flex; align-items: center; justify-content: center;
     text-align: center;
-    color: #fff;
-    padding: 0 20px;
+    background: radial-gradient(circle at center, #111111 0%, #000000 100%);
 }
-.hero-bg {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: url('background.jpg') no-repeat center center/cover;
-    filter: blur(5px); /* Efek blur pada background */
-    z-index: 1;
+/* Aksen cahaya biru halus di background */
+.hero::before {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); width: 60vw; height: 60vw;
+    background: var(--accent-blue); opacity: 0.08;
+    filter: blur(120px); z-index: 0; pointer-events: none;
 }
-.hero-content-panel {
-    background: rgba(13, 17, 23, 0.7);
-    backdrop-filter: blur(10px);
-    padding: 40px 60px;
-    border-radius: 20px;
-    border: 1px solid #21262d;
-    z-index: 2;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+.hero-content { z-index: 2; padding: 0 20px; }
+.hero h1 { font-size: 4rem; line-height: 1.2; margin: 10px 0; }
+.hero-subtitle {
+    font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--text-secondary); margin-bottom: 10px;
 }
-.hero-content h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
+.hero-divider {
+    width: 60px; height: 1px; background: var(--accent-blue);
+    margin: 20px auto;
 }
-.hero-content p {
-    font-size: 1.3rem;
-    font-weight: 300;
-    margin-top: 10px;
+.btn-luxury {
+    display: inline-block; margin-top: 30px;
+    padding: 12px 35px;
+    border: 1px solid var(--border-color);
+    color: #fff; text-decoration: none;
+    text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
+    transition: all 0.4s ease;
+}
+.btn-luxury:hover {
+    background: var(--accent-blue); border-color: var(--accent-blue);
+    box-shadow: 0 0 20px var(--accent-glow);
 }
 
-/* --- KONTEN UTAMA & ANIMASI --- */
-main#content {
-    padding-top: 140px; /* Jarak dari atas agar tidak tertutup navbar */
-}
-.info-section {
-    max-width: 1200px;
-    margin: 0 auto 100px auto;
-    padding: 0 20px;
-}
-.hidden {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-.section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 50px;
-    font-weight: 600;
-    color: #fff;
-}
+/* --- MAIN CONTENT & ANIMATIONS --- */
+main#content { padding-top: 100px; }
+.info-section { max-width: 1200px; margin: 0 auto 150px; padding: 0 30px; }
+.hidden { opacity: 0; transform: translateY(50px); transition: all 1s ease; }
+.visible { opacity: 1; transform: translateY(0); }
 
-/* --- DESAIN KARTU BARU (STRUKTUR KELAS) --- */
+/* --- CARDS (STRUKTUR) --- */
 .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 30px;
 }
 .card {
-    background: #161b22;
-    border: 1px solid #21262d;
-    border-radius: 12px;
-    padding: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 40px 20px;
     text-align: center;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.4s ease, border-color 0.4s ease;
 }
 .card:hover {
-    transform: translateY(-8px);
-    border-color: #58a6ff;
+    transform: translateY(-10px);
+    border-color: var(--accent-blue);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
-.card-icon {
-    font-size: 2.5rem;
-    color: #58a6ff;
-    margin-bottom: 15px;
-}
-.card .jabatan {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #fff;
-}
-.card .nama {
-    font-size: 1rem;
-    color: #c9d1d9;
-    margin-top: 5px;
-}
+.card-icon { font-size: 2rem; color: var(--text-secondary); margin-bottom: 20px; transition: color 0.3s; }
+.card:hover .card-icon { color: var(--accent-blue); }
+.card .jabatan { font-size: 1.1rem; color: #fff; margin-bottom: 5px; font-family: var(--font-serif); }
+.card .nama { font-size: 0.9rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
 
-/* --- DESAIN JADWAL --- */
-.schedule-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+/* --- SCHEDULE (JADWAL) --- */
+.schedule-wrapper {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
 }
-.schedule-column h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #fff;
-    border-bottom: 2px solid #58a6ff;
-    padding-bottom: 10px;
+.column-title {
+    font-size: 1.5rem; margin-bottom: 30px; border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px; display: inline-block; width: 100%;
 }
 .schedule-item {
-    background: #161b22;
-    border: 1px solid #21262d;
-    border-radius: 8px;
-    padding: 15px 20px;
-    margin-bottom: 15px;
+    margin-bottom: 25px; padding-bottom: 25px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
+.schedule-item:last-child { border-bottom: none; }
 .schedule-item h4 {
-    font-size: 1.1rem;
-    color: #58a6ff;
+    color: var(--accent-blue); text-transform: uppercase; letter-spacing: 2px;
+    font-size: 0.9rem; margin-bottom: 10px; font-family: var(--font-sans);
 }
-.schedule-item ul {
-    list-style: none;
-    padding-top: 8px;
-}
+.schedule-item ul { list-style: none; }
 .schedule-item li {
-    margin-bottom: 5px;
-    font-size: 0.95rem;
+    color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 5px;
 }
 
-/* --- GALERI --- */
+/* --- GALLERY (SWIPER) --- */
 .swiper-container {
-    width: 100%;
-    height: 500px;
-    border-radius: 12px;
+    width: 100%; padding-bottom: 50px; overflow: hidden;
+}
+.swiper-slide {
+    width: auto; height: 500px;
+    transition: transform 0.5s ease;
 }
 .swiper-slide img {
-    width: 100%; height: 100%; object-fit: cover; border-radius: 12px;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%); /* Hitam putih default */
+    transition: filter 0.5s ease;
 }
-.swiper-button-next, .swiper-button-prev { color: #fff !important; }
-.swiper-pagination-bullet-active { background: #fff !important; }
+.swiper-slide-active img { filter: grayscale(0%); } /* Berwarna saat aktif */
 
-/* --- GAYA TAMBAHAN UNTUK GALERI VIDEO --- */
-
-/* Membuat posisi ikon play relatif terhadap pembungkusnya */
-.swiper-slide a {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
+/* Tombol Navigasi Custom */
+.swiper-button-next, .swiper-button-prev {
+    color: #fff !important; opacity: 0.5; transition: opacity 0.3s;
 }
+.swiper-button-next:hover, .swiper-button-prev:hover { opacity: 1; }
+.swiper-pagination-bullet { background: #555; opacity: 1; }
+.swiper-pagination-bullet-active { background: var(--accent-blue); }
 
-/* Membuat ikon play di tengah thumbnail video */
+/* Video Thumbnail Styling */
+.video-thumbnail { position: relative; display: block; height: 100%; }
 .video-thumbnail::after {
-    content: '\f144'; /* Kode ikon 'play circle' dari Font Awesome */
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 60px;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s ease, color 0.3s ease;
-    pointer-events: none; /* Agar ikon tidak menghalangi klik */
-}
-
-/* Efek hover pada ikon play */
-.video-thumbnail:hover::after {
-    transform: translate(-50%, -50%) scale(1.1);
-    color: #fff;
+    content: '\f04b'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 3rem; color: #fff; mix-blend-mode: difference;
 }
 
 /* --- FOOTER --- */
 footer {
-    text-align: center;
-    padding: 25px;
-    background: #161b22;
-    border-top: 1px solid #21262d;
-    margin-top: 50px;
-    border-radius: 15px 15px 0 0;
+    text-align: center; padding: 80px 20px;
+    border-top: 1px solid var(--border-color);
+    background: #020202;
 }
+.footer-logo { font-family: var(--font-serif); font-size: 2rem; margin-bottom: 20px; }
+footer p { color: var(--text-secondary); font-size: 0.85rem; }
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-    .nav-menu { display: none; } /* Sederhanakan navbar di mobile */
-    .hero-content h1 { font-size: 2.5rem; }
-    .hero-content-panel { padding: 30px; }
-    .section-title { font-size: 2rem; }
-    .schedule-grid { grid-template-columns: 1fr; }
-    .schedule-column { margin-bottom: 40px; }
-    .swiper-container { height: 300px; }
+    .nav-menu { display: none; } /* Bisa ditambahkan logic toggle JS nanti */
+    .mobile-menu-btn { display: block; }
+    
+    .hero h1 { font-size: 2.5rem; }
+    .schedule-wrapper { grid-template-columns: 1fr; gap: 40px; }
+    .swiper-slide { height: 350px; }
 }
