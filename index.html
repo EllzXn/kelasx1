@@ -1,98 +1,151 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <meta property="og:title" content="KelasX.1 - Athenaeon">
     <meta property="og:description" content="Website khusus Kelas X.1 - Athenaeon SMA Negeri 2 Luwu">
     <meta property="og:image" content="https://files.catbox.moe/1p1l4a.jpg">
     <meta property="og:url" content="kelasx1.vercel.app">
-    
+
     <title>Website Kelas X1</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <link rel="stylesheet" href="/assets/src/css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-</head>
-<body>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
 
-    <nav class="navbar">
-        <div class="navbar-container">
-            <a href="https://github.com/EllzXn/kelasx1.git" class="nav-logo">Athenaeon.</a>
-            <div class="nav-menu">
-                <a href="#struktur" class="nav-link">Struktur</a>
-                <a href="#jadwal" class="nav-link">Jadwal</a>
-                <a href="#galeri" class="nav-link">Galeri</a>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        // Aksen biru yang soft
+                        'accent': '#3b82f6', 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Sembunyikan scrollbar tapi tetap bisa scroll */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Swiper Pagination Custom */
+        .swiper-pagination-bullet { background: #4b5563; opacity: 1; }
+        .swiper-pagination-bullet-active { background: #3b82f6; width: 20px; border-radius: 5px; transition: width 0.3s; }
+        
+        /* Typed Cursor */
+        .typed-cursor { color: #3b82f6; font-size: 2.5rem; }
+    </style>
+</head>
+<body class="bg-black text-gray-300 font-sans selection:bg-blue-500 selection:text-white">
+
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 bg-black/80 backdrop-blur-md border-b border-white/5" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-semibold text-white tracking-wide hover:text-blue-400 transition">
+                Athenaeon<span class="text-blue-500">.</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#struktur" class="text-sm font-medium hover:text-blue-400 transition">Struktur</a>
+                <a href="#jadwal" class="text-sm font-medium hover:text-blue-400 transition">Jadwal</a>
+                <a href="#galeri" class="text-sm font-medium hover:text-blue-400 transition">Galeri</a>
             </div>
-            <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+
+            <button class="md:hidden text-white text-xl">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-overlay"></div> 
-        <div class="hero-content animate__animated animate__fadeIn">
-            <p class="hero-subtitle">The Official Class Website</p>
-            <h1><span id="typed-text"></span></h1>
-            <div class="hero-divider"></div>
-            <p class="hero-class-name"><span id="nama-kelas-hero"></span></p>
-            <a href="#galeri" class="btn-luxury">Explore Class</a>
+    <header class="h-screen flex flex-col justify-center items-center text-center px-4 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[100px] -z-10"></div>
+        
+        <div class="space-y-4 animate-fade-in-up">
+            <p class="text-blue-400 tracking-widest text-xs font-semibold uppercase">Official Website</p>
+            <h1 class="text-4xl md:text-6xl font-bold text-white">
+                <span id="typed-text"></span>
+            </h1>
+            <p class="text-gray-400 text-sm md:text-base max-w-md mx-auto mt-4">
+                Website resmi kelas <span id="nama-kelas-hero" class="text-white font-medium"></span>. 
+                Tempat kami berbagi momen dan informasi.
+            </p>
+            
+            <div class="pt-8">
+                <a href="#galeri" class="px-8 py-3 rounded-full bg-white text-black font-medium text-sm hover:bg-blue-500 hover:text-white transition-all duration-300">
+                    Lihat Galeri
+                </a>
+            </div>
         </div>
     </header>
 
-    <main id="content">
-        <section id="galeri" class="info-section hidden">
-            <div class="section-header">
-                <span class="section-tag">Memories</span>
-                <h2 class="section-title">Class Gallery</h2>
+    <main class="max-w-6xl mx-auto px-6 pb-20 space-y-32">
+        
+        <section id="galeri" class="opacity-0 transition-all duration-1000 translate-y-10" data-observe>
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-semibold text-white">Galeri Kelas</h2>
+                <div class="h-[1px] bg-white/10 flex-grow ml-6"></div>
             </div>
-            <div class="swiper-container mySwiper">
+            
+            <div class="swiper-container mySwiper w-full rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/10">
                 <div class="swiper-wrapper" id="galeri-container">
                     </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-prev custom-nav"></div>
-                <div class="swiper-button-next custom-nav"></div>
+                <div class="swiper-pagination !bottom-6"></div>
             </div>
         </section>
 
-        <section id="struktur" class="info-section hidden">
-            <div class="section-header">
-                <span class="section-tag">Organization</span>
-                <h2 class="section-title">The Structure</h2>
+        <section id="struktur" class="opacity-0 transition-all duration-1000 translate-y-10" data-observe>
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-semibold text-white">Struktur Organisasi</h2>
+                <div class="h-[1px] bg-white/10 flex-grow ml-6"></div>
             </div>
-            <div id="struktur-kelas-container" class="card-grid">
+            
+            <div id="struktur-kelas-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 </div>
         </section>
 
-        <section id="jadwal" class="info-section hidden">
-            <div class="section-header">
-                <span class="section-tag">Timeline</span>
-                <h2 class="section-title">Class Schedule</h2>
+        <section id="jadwal" class="opacity-0 transition-all duration-1000 translate-y-10" data-observe>
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-semibold text-white">Jadwal Mingguan</h2>
+                <div class="h-[1px] bg-white/10 flex-grow ml-6"></div>
             </div>
-            <div class="schedule-wrapper">
-                <div class="schedule-column">
-                    <h3 class="column-title">Subject Schedule</h3>
-                    <div id="jadwal-pelajaran-container" class="schedule-list"></div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="bg-neutral-900/50 border border-white/5 rounded-2xl p-8">
+                    <h3 class="text-lg font-medium text-blue-400 mb-6 flex items-center gap-2">
+                        <i class="far fa-clock"></i> Mata Pelajaran
+                    </h3>
+                    <div id="jadwal-pelajaran-container" class="space-y-6">
+                        </div>
                 </div>
-                <div class="schedule-column">
-                    <h3 class="column-title">Duty Roster</h3>
-                    <div id="jadwal-piket-container" class="schedule-list"></div>
+
+                <div class="bg-neutral-900/50 border border-white/5 rounded-2xl p-8">
+                    <h3 class="text-lg font-medium text-blue-400 mb-6 flex items-center gap-2">
+                        <i class="fas fa-broom"></i> Piket Kelas
+                    </h3>
+                    <div id="jadwal-piket-container" class="space-y-6">
+                        </div>
                 </div>
             </div>
         </section>
+
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <h2 class="footer-logo">Athenaeon.</h2>
-            <p>&copy; 2025 <span id="nama-kelas-footer"></span>. <br>Crafted with elegance by EllzXn.</p>
-        </div>
+    <footer class="border-t border-white/5 bg-black py-10 text-center">
+        <p class="text-gray-500 text-sm">
+            &copy; 2025 <span id="nama-kelas-footer" class="text-white"></span>. 
+            Simple & Clean by EllzXn.
+        </p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
