@@ -7,70 +7,92 @@
     <meta property="og:description" content="Website khusus Kelas X.1 - Athenaeon SMA Negeri 2 Luwu">
     <meta property="og:image" content="https://files.catbox.moe/1p1l4a.jpg">
     <meta property="og:url" content="kelasx1.vercel.app">
+    
     <title>Website Kelas X1</title>
+    
     <link rel="stylesheet" href="/assets/src/css/style.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
 </head>
 <body>
 
-    <nav class="navbar animate__animated animate__fadeInDown">
+    <nav class="navbar">
         <div class="navbar-container">
-            <a href="https://github.com/EllzXn/kelasx1.git" class="nav-logo">Kelas X1</a>
+            <a href="https://github.com/EllzXn/kelasx1.git" class="nav-logo">Athenaeon.</a>
             <div class="nav-menu">
                 <a href="#struktur" class="nav-link">Struktur</a>
                 <a href="#jadwal" class="nav-link">Jadwal</a>
                 <a href="#galeri" class="nav-link">Galeri</a>
             </div>
+            <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content-panel animate__animated animate__fadeIn">
-            <div class="hero-content">
-                <h1><span id="typed-text"></span></h1>
-                <p>Website Khusus <span id="nama-kelas-hero"></span></p>
-            </div>
+        <div class="hero-overlay"></div> 
+        <div class="hero-content animate__animated animate__fadeIn">
+            <p class="hero-subtitle">The Official Class Website</p>
+            <h1><span id="typed-text"></span></h1>
+            <div class="hero-divider"></div>
+            <p class="hero-class-name"><span id="nama-kelas-hero"></span></p>
+            <a href="#galeri" class="btn-luxury">Explore Class</a>
         </div>
     </header>
 
     <main id="content">
         <section id="galeri" class="info-section hidden">
-            <h2 class="section-title">Galeri Kelas</h2>
+            <div class="section-header">
+                <span class="section-tag">Memories</span>
+                <h2 class="section-title">Class Gallery</h2>
+            </div>
             <div class="swiper-container mySwiper">
                 <div class="swiper-wrapper" id="galeri-container">
                     </div>
                 <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev custom-nav"></div>
+                <div class="swiper-button-next custom-nav"></div>
             </div>
         </section>
 
         <section id="struktur" class="info-section hidden">
-            <h2 class="section-title">Struktur Kelas</h2>
+            <div class="section-header">
+                <span class="section-tag">Organization</span>
+                <h2 class="section-title">The Structure</h2>
+            </div>
             <div id="struktur-kelas-container" class="card-grid">
                 </div>
         </section>
 
         <section id="jadwal" class="info-section hidden">
-            <h2 class="section-title">Jadwal Kelas</h2>
-            <div class="schedule-grid">
+            <div class="section-header">
+                <span class="section-tag">Timeline</span>
+                <h2 class="section-title">Class Schedule</h2>
+            </div>
+            <div class="schedule-wrapper">
                 <div class="schedule-column">
-                    <h3>Jadwal Pelajaran</h3>
-                    <div id="jadwal-pelajaran-container"></div>
+                    <h3 class="column-title">Subject Schedule</h3>
+                    <div id="jadwal-pelajaran-container" class="schedule-list"></div>
                 </div>
                 <div class="schedule-column">
-                    <h3>Jadwal Piket</h3>
-                    <div id="jadwal-piket-container"></div>
+                    <h3 class="column-title">Duty Roster</h3>
+                    <div id="jadwal-piket-container" class="schedule-list"></div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="animate__animated animate__fadeInUp">
-        <p>&copy; 2025 <span id="nama-kelas-footer"></span>. Dibuat oleh EllzXn</p>
+    <footer>
+        <div class="footer-content">
+            <h2 class="footer-logo">Athenaeon.</h2>
+            <p>&copy; 2025 <span id="nama-kelas-footer"></span>. <br>Crafted with elegance by EllzXn.</p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
