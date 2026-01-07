@@ -9,10 +9,10 @@
   ],
   "jadwalPelajaran": [
     { "hari": "Senin", "mapel": ["Bahasa Inggris", "Agama", "Fisika"] },
-    { "hari": "Selasa", "mapel": ["Matematika", "Sejarah", "Kimia"] },
-    { "hari": "Rabu", "mapel": ["Bahasa Indonesia", "Informatika", "Geografi", "Sosiologi"] },
-    { "hari": "Kamis", "mapel": ["Biologi", "PJOK", "Bahasa Daerah", "PKN"] },
-    { "hari": "Jumat", "mapel": ["Bahasa Indonesia", "Seni Budaya", "Ekonomi"] }
+    { "hari": "Selasa", "mapel": ["Matematika", "Bahasa Arab", "Sejarah", "Kimia"] },
+    { "hari": "Rabu", "mapel": ["Bahasa Indonesia", "Seni Budaya", "Geografi", "Sosiologi"] },
+    { "hari": "Kamis", "mapel": ["Biologi", "PJOK", "Matematika", "PKN"] },
+    { "hari": "Jumat", "mapel": ["Bahasa Indonesia", "Informatika", "Ekonomi"] }
   ],
   "jadwalPiket": [
     { "hari": "Senin", "anggota": ["Dila", "Dimas", "Husna", "Azikah", "Rafih", "Apral"] },
